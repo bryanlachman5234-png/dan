@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine, Danika?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+            border: 8px solid #ff4d6d;
+        }
+        
+        .header-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 5px solid #ff758f;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #ff4d6d;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.2;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            position: relative;
+            min-height: 120px;
+        }
+        
+        button {
+            padding: 18px 40px;
+            font-size: 1.8rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #yes-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #yes-btn:hover {
+            background-color: #3e8e41;
+            transform: scale(1.05);
+        }
+        
+        #no-btn {
+            background-color: #ff4d6d;
+            color: white;
+            position: absolute;
+        }
+        
+        #no-btn:hover {
+            background-color: #ff3355;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .message {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: #fff0f3;
+            border-radius: 20px;
+            border: 4px dashed #ff4d6d;
+        }
+        
+        #love-message {
+            font-size: 3.5rem;
+            color: #ff4d6d;
+            font-weight: bold;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: #ff4d6d;
+            opacity: 0;
+            animation: floatUp 5s linear forwards;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .instructions {
+            margin-top: 25px;
+            color: #666;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: #fff;
+            text-align: center;
+            font-size: 1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            button {
+                padding: 15px 30px;
+                font-size: 1.5rem;
+            }
+            
+            #love-message {
+                font-size: 2.5rem;
+            }
+            
+            .buttons-container {
+                min-height: 150px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            button {
+                padding: 12px 24px;
+                font-size: 1.3rem;
+            }
+            
+            #love-message {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="bearval.png" alt="Happy Valentine's Day" class="header-image">
+        
+        <h1>Will you be my Valentine, Danika?</h1>
+        
+        <div class="buttons-container">
+            <button id="yes-btn">YES!</button>
+            <button id="no-btn">No</button>
+        </div>
+        
+        <div class="message hidden" id="success-message">
+            <p id="love-message">I love you! 💖</p>
+            <p style="margin-top: 15px; font-size: 1.3rem; color: #555;">
+                You've made me the happiest person! Happy Valentine's Day! 💕
+            </p>
+        </div>
+        
+        <p class="instructions">
+            (Hint: Try clicking the "No" button if you dare... but we both know you want to click "YES!")
+        </p>
+    </div>
+    
+    <div class="hearts-container" id="hearts-container"></div>
+    
+    <footer>
+        <p>Made with <i class="fas fa-heart" style="color: #ff4d6d;"></i> for Danika | Happy Valentine's Day!</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const yesBtn = document.getElementById('yes-btn');
+            const noBtn = document.getElementById('no-btn');
+            const successMessage = document.getElementById('success-message');
+            const heartsContainer = document.getElementById('hearts-container');
+            const buttonsContainer = document.querySelector('.buttons-container');
+            const container = document.querySelector('.container');
+            
+            // Function to move the "No" button to a random position
+            function moveNoButton() {
+                const containerRect = container.getBoundingClientRect();
+                const noBtnRect = noBtn.getBoundingClientRect();
+                const buttonsRect = buttonsContainer.getBoundingClientRect();
+                
+                // Calculate available space within the buttons container
+                const maxX = buttonsRect.width - noBtnRect.width - 20;
+                const maxY = buttonsRect.height - noBtnRect.height - 20;
+                
+                // Generate random position within the container
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                // Apply new position
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+                
+                // Change the button text randomly
+                const noTexts = [
+                    "Are you sure?", 
+                    "Really?", 
+                    "Think again!", 
+                    "Try again!", 
+                    "Please?", 
+                    "Don't do this!",
+                    "You don't mean that!",
+                    "I'll be sad 😢",
+                    "Give it another thought!",
+                    "Click YES instead!"
+                ];
+                const randomIndex = Math.floor(Math.random() * noTexts.length);
+                noBtn.textContent = noTexts[randomIndex];
+                
+                // Change button color temporarily
+                noBtn.style.backgroundColor = "#ff3355";
+                setTimeout(() => {
+                    noBtn.style.backgroundColor = "#ff4d6d";
+                }, 300);
+            }
+            
+            // Function to create flying hearts
+            function createHearts(count) {
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.classList.add('heart');
+                        heart.innerHTML = '❤️';
+                        
+                        // Random horizontal position
+                        const leftPos = Math.random() * 100;
+                        heart.style.left = `${leftPos}%`;
+                        
+                        // Random size
+                        const size = Math.random() * 30 + 20;
+                        heart.style.fontSize = `${size}px`;
+                        
+                        // Random animation duration
+                        const duration = Math.random() * 3 + 4;
+                        heart.style.animationDuration = `${duration}s`;
+                        
+                        // Add to container
+                        heartsContainer.appendChild(heart);
+                        
+                        // Remove heart after animation completes
+                        setTimeout(() => {
+                            heart.remove();
+                        }, duration * 1000);
+                    }, i * 200); // Stagger the hearts
+                }
+            }
+            
+            // Event listener for the "No" button
+            noBtn.addEventListener('click', moveNoButton);
+            noBtn.addEventListener('mouseover', function() {
+                // Small chance to move on hover too
+                if (Math.random() < 0.3) {
+                    moveNoButton();
+                }
+            });
+            
+            // Event listener for the "Yes" button
+            yesBtn.addEventListener('click', function() {
+                // Hide the buttons
+                yesBtn.classList.add('hidden');
+                noBtn.classList.add('hidden');
+                
+                // Show the success message
+                successMessage.classList.remove('hidden');
+                
+                // Create lots of flying hearts
+                createHearts(50);
+                
+                // Create more hearts every few seconds
+                const heartInterval = setInterval(() => {
+                    createHearts(5);
+                }, 2000);
+                
+                // Stop creating hearts after 20 seconds
+                setTimeout(() => {
+                    clearInterval(heartInterval);
+                }, 20000);
+                
+                // Play a success sound if possible
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    playSuccessSound(audioContext);
+                } catch (e) {
+                    console.log("Audio not supported");
+                }
+            });
+            
+            // Function to play a simple success sound
+            function playSuccessSound(audioContext) {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+            
+            // Initialize with a random position for the "No" button
+            moveNoButton();
+            
+            // Create a few hearts initially for ambiance
+            createHearts(10);
+        });
+    </script>
+</body>
+</html>
